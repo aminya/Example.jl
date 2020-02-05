@@ -1,4 +1,4 @@
 using SnoopCompile
 
 # using runtests:
-@snoopi_bot "Juno"
+@snoopi_bot "Example"
