@@ -1,4 +1,4 @@
-name: SnoopCompile2
+name: SnoopCompile1
 
 on:
   - push
@@ -11,7 +11,7 @@ jobs:
         version:
           - '1.4.0-rc1'
         os:
-          - windows-latest
+          - ubuntu-latest
         arch:
           - x64
     steps:
@@ -37,8 +37,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Update precompile_*.jl file
           # committer: YOUR NAME <yourEmail@something.com> # Change `committer` to your name and your email.
-          title: '222 [AUTO] Update precompile_*.jl file'
+          title: "${{ matrix.os }} [AUTO] Update precompile_*.jl file'"
           labels: SnoopCompile
-          branch: create-pull-request/SnoopCompile2
+          branch: "create-pull-request/SnoopCompile/${{ matrix.os }}"
       - name: Check output environment variable
         run: echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
