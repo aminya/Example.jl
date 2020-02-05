@@ -1,18 +1,26 @@
 module Example
 export hello, domath
 
-"""
-    hello(who::String)
+@static if Sys.iswindows()
+  hello(who::String) = "Hello, $who"
 
-Return "Hello, `who`".
-"""
-hello(who::String) = "Hello, $who"
+  elseif Sys.islinux()
+    domath(x::Number) = x + 5
 
-"""
-    domath(x::Number)
+  end
 
-Return `x + 5`.
-"""
-domath(x::Number) = x + 5
+# @static if Sys.iswindows()
+#     include("windows/MatLang_precompiles.jl")
+#       _precompile_()
+#
+#   elseif Sys.islinux()
+#     include("linux/MatLang_precompiles.jl")
+#       _precompile_()
+#
+#   end
+
+# precompile
+# include("../deps/SnoopCompile/precompile/precompile_Example.jl")
+# _precompile_()
 
 end
