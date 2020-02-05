@@ -10,15 +10,7 @@ elseif Sys.islinux()
 end
 
 
-@static if Sys.iswindows()
-  include("../deps/SnoopCompile/precompile/windows/precompile_Example.jl")
-  _precompile_()
-
-elseif Sys.islinux()
-  include("../deps/SnoopCompile/precompile/linux/precompile_Example.jl")
-  _precompile_()
-
-end
-
+#include("../deps/SnoopCompile/precompile/precompile_Example.jl")
+#_precompile_()
 
 end
