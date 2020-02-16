@@ -9,8 +9,4 @@ elseif Sys.islinux()
 
 end
 
-
-#include("../deps/SnoopCompile/precompile/precompile_Example.jl")
-#_precompile_()
-
 end
