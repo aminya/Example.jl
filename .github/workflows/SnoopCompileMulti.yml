@@ -16,7 +16,6 @@ jobs:
         arch:
           - x64
         shell:
-          - bash
           - cmd
     steps:
       - uses: actions/checkout@v2
