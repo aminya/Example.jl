@@ -16,7 +16,7 @@ jobs:
         arch:
           - x64
         shell:
-          - cmd
+          - pwsh
     steps:
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
@@ -25,12 +25,12 @@ jobs:
           shell: ${{ matrix.shell }}
       - name: Install dependencies
         run: |
-          julia --project -e "using Pkg; Pkg.instantiate();"
-          julia -e "using Pkg; Pkg.add(PackageSpec(url = \"https://github.com/aminya/SnoopCompile.jl\", rev = \"multios\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();"
+          julia --project -e 'using Pkg; Pkg.instantiate();'
+          julia -e 'using Pkg; Pkg.add(PackageSpec(url = \"https://github.com/aminya/SnoopCompile.jl\", rev = \"multios\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();'
       - name: Generating precompile files
-        run: julia --project=@. -e "include(\"deps/SnoopCompile/snoopCompile.jl\")"
+        run: julia --project=@. -e 'include(\"deps/SnoopCompile/snoopCompile.jl\")'
       - name: Running Benchmark
-        run: julia --project=@. -e "include(\"deps/SnoopCompile/snoopBenchmark.jl\")"
+        run: julia --project=@. -e 'include(\"deps/SnoopCompile/snoopBenchmark.jl\")'
 
       # https://github.com/marketplace/actions/create-pull-request
       - name: Create Pull Request
