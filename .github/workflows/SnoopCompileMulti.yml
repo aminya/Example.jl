@@ -11,7 +11,7 @@ jobs:
         version:
           - '1.4.0-rc1'
         os:
-          # - ubuntu-latest
+          - ubuntu-latest
           - windows-latest
         arch:
           - x64
