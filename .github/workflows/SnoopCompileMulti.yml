@@ -15,23 +15,23 @@ jobs:
           - windows-latest
         arch:
           - x64
-        shell:
-          - pwsh
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
         with:
           version: ${{ matrix.julia-version }}
-          shell: ${{ matrix.shell }}
       - name: Install dependencies
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
           julia -e 'using Pkg; Pkg.add(PackageSpec(url = \"https://github.com/aminya/SnoopCompile.jl\", rev = \"multios\")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();'
+        shell: pwsh
       - name: Generating precompile files
         run: julia --project=@. -e 'include(\"deps/SnoopCompile/snoopCompile.jl\")'
+        shell: pwsh
       - name: Running Benchmark
         run: julia --project=@. -e 'include(\"deps/SnoopCompile/snoopBenchmark.jl\")'
+        shell: pwsh
 
       # https://github.com/marketplace/actions/create-pull-request
       - name: Create Pull Request
