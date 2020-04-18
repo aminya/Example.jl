@@ -17,12 +17,12 @@ jobs:
       matrix:
         version:
           - '1.4.1'
-          # if you want multi-version signatures:
+          # Uncomment if you want multi-version signatures (should exactly match BotConfig.version):
           # - '1.2.0'
           # - '1.0.5'
         os:
           - ubuntu-latest
-          # if you want multi-os signatures:
+          # Uncomment if you want multi-os signatures (currently only these are supported by Github):
           - windows-latest
           # - macos-latest
         arch:
