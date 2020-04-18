@@ -3,16 +3,25 @@ name: MultiSnoopCompile
 on:
   - push
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
-  build:
+  SnoopCompile:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         version:
-          - '1.4.0-rc1'
+          - '1.4.1'
+          # if you want multi-version signatures:
+          - '1.2.0'
+          - '1.0.5'
         os:
           - ubuntu-latest
+          # if you want multi-os signatures:
           - windows-latest
+          - osx-latest
         arch:
           - x64
     steps:
@@ -24,14 +33,35 @@ jobs:
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
           julia -e 'using Pkg; Pkg.add(PackageSpec(url = "https://github.com/aminya/SnoopCompile.jl", rev = "multios")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();'
-        shell: bash
+      - name: Install Test dependencies
+        run: julia -e 'using SnoopCompile; SnoopCompile.addtestdep()'
       - name: Generating precompile files
-        run: julia --project=@. -e 'include("deps/SnoopCompile/snoopCompile.jl")'
-        shell: bash
+        run: julia --project=@. -e 'include("deps/SnoopCompile/snoopi_bot.jl")'
       - name: Running Benchmark
-        run: julia --project=@. -e 'include("deps/SnoopCompile/snoopBenchmark.jl")'
-        shell: bash
+        run: julia --project=@. -e 'include("deps/SnoopCompile/snoopi_bench.jl")'
+      - name: Upload src Folder
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: src
+          path: src/
+      - name: Upload precompile Folder
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: precompile
+          path: deps/SnoopCompile/precompile/
 
+  Create_PR:
+    needs: SnoopCompile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download src
+        uses: actions/download-artifact@v2-preview
+        with:
+          name: src
+      - name: Download precompile
+        uses: actions/download-artifact@v2-preview
+        with:
+          name: precompile
       # https://github.com/marketplace/actions/create-pull-request
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2
@@ -39,6 +69,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Update precompile_*.jl file
           # committer: YOUR NAME <yourEmail@something.com> # Change `committer` to your name and your email.
-          title: "${{ matrix.os }} [AUTO] Update precompile_*.jl file'"
+          title: "[AUTO] Update precompiles'"
           labels: SnoopCompile
-          branch: "create-pull-request/SnoopCompile/${{ matrix.os }}"
+          branch: "create-pull-request/SnoopCompile/"
