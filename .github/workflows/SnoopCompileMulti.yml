@@ -61,13 +61,6 @@ jobs:
       - name: Discard unrelated changes
         run: |
           git diff -w --no-color | git apply --cached --ignore-whitespace && git checkout -- . && git reset && git add -p
-      - name: Commit includer and precompile files
-        run:  |
-          git add -- ./src
-          git commit -m 'Add built files' -- ./src
-          git add -- ./deps/SnoopCompile/precompile
-          git commit -m 'Add built files' -- ./deps/SnoopCompile/precompile
-          git reset
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
