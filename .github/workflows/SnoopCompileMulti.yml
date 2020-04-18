@@ -1,9 +1,10 @@
 name: MultiSnoopCompile
 
+# Only runs on pushes to master. Edit based on your taste.
 on:
   push:
-    # branches:
-      # - 'master'
+    branches:
+      - 'master'
   # pull_request:
 
 defaults:
@@ -15,14 +16,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        # Uncomment other versions if you want multi-version signatures (should exactly match BotConfig.version):
         version:
           - '1.4.1'
-          # Uncomment if you want multi-version signatures (should exactly match BotConfig.version):
           # - '1.2.0'
           # - '1.0.5'
+        # Uncomment other options if you want multi-os signatures (currently only these are supported by Github):
         os:
           - ubuntu-latest
-          # Uncomment if you want multi-os signatures (currently only these are supported by Github):
           - windows-latest
           # - macos-latest
         arch:
