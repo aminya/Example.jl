@@ -45,28 +45,30 @@ jobs:
       - name: Upload src Folder
         uses: actions/upload-artifact@v2-preview
         with:
-          name: src
-          path: src/
-      - name: Upload precompile Folder
-        uses: actions/upload-artifact@v2-preview
-        with:
-          name: precompile
-          path: deps/SnoopCompile/precompile/
+          # name: src
+          path: ./
+      # - name: Upload precompile Folder
+      #   uses: actions/upload-artifact@v2-preview
+      #   with:
+      #     name: precompile
+      #     path: deps/SnoopCompile/precompile/
 
   Create_PR:
     needs: SnoopCompile
     runs-on: ubuntu-latest
     steps:
-      - name: Download src
+      # - name: Download src
+      #   uses: actions/download-artifact@v2-preview
+      #   with:
+      #     name: src
+      # - run: cat src
+      # - name: Download precompile
+      #   uses: actions/download-artifact@v2-preview
+      #   with:
+      #     name: precompile
+      # - run: cat precompile
+      - name: download all
         uses: actions/download-artifact@v2-preview
-        with:
-          name: src
-      - run: cat src
-      - name: Download precompile
-        uses: actions/download-artifact@v2-preview
-        with:
-          name: precompile
-      - run: cat precompile
       # https://github.com/marketplace/actions/create-pull-request
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2
