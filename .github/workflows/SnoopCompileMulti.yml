@@ -1,10 +1,10 @@
 name: MultiSnoopCompile
 
-# Only runs on pushes to master. Edit based on your taste.
+# Only runs on pushes. Edit based on your taste.
 on:
   push:
     branches:
-      - 'master'
+      # - 'master'
   # pull_request:
 
 defaults:
@@ -54,7 +54,6 @@ jobs:
     steps:
       - name: Download all
         uses: actions/download-artifact@v2-preview
-      # https://github.com/marketplace/actions/create-pull-request
       - name: Move the content of the directory to the root
         run: |
           mv -v artifact/* ./
@@ -70,6 +69,7 @@ jobs:
       - run: npm install -g tree-node-cli
       - run: tree -a
       - name: Create Pull Request
+        # https://github.com/marketplace/actions/create-pull-request
         uses: peter-evans/create-pull-request@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
