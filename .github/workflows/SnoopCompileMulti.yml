@@ -71,4 +71,4 @@ jobs:
           # committer: YOUR NAME <yourEmail@something.com> # Change `committer` to your name and your email.
           title: "[AUTO] Update precompiles'"
           labels: SnoopCompile
-          branch: "create-pull-request/SnoopCompile/"
+          branch: "SnoopCompile"
