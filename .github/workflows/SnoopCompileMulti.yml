@@ -61,13 +61,7 @@ jobs:
       - name: Discard unrelated changes
         run: |
           git checkout -- Project.toml
-          git checkout -- Manifest.toml
           git diff -w --no-color | git apply --cached --ignore-whitespace && git checkout -- . && git reset && git add -p
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - run: npm install -g tree-node-cli
-      - run: tree -a
       - name: Create Pull Request
         # https://github.com/marketplace/actions/create-pull-request
         uses: peter-evans/create-pull-request@v2
