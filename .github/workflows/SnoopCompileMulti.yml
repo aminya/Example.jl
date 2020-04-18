@@ -15,8 +15,8 @@ jobs:
         version:
           - '1.4.1'
           # if you want multi-version signatures:
-          - '1.2.0'
-          - '1.0.5'
+          # - '1.2.0'
+          # - '1.0.5'
         os:
           - ubuntu-latest
           # if you want multi-os signatures:
