@@ -1,7 +1,10 @@
 name: MultiSnoopCompile
 
 on:
-  - push
+  push:
+    # branches:
+      # - 'master'
+  # pull_request:
 
 defaults:
   run:
@@ -21,7 +24,7 @@ jobs:
           - ubuntu-latest
           # if you want multi-os signatures:
           - windows-latest
-          - macos-latest
+          # - macos-latest
         arch:
           - x64
     steps:
