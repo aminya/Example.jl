@@ -6,5 +6,6 @@ using Test, Example
 
 elseif Sys.islinux()
   @test domath(2.0) ≈ 7.0
-
+else
+  @test multiply(2) == 10
 end

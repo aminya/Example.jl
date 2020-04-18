@@ -7,6 +7,8 @@ export hello, domath
 elseif Sys.islinux()
   domath(x::Number) = x + 5
 
+else
+  multiply(x::Number) = x * 5
 end
 
 end
