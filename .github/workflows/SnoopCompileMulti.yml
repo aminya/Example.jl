@@ -56,6 +56,11 @@ jobs:
       # https://github.com/marketplace/actions/create-pull-request
       - name: Move the content of the directory to the root
         run: mv artifact/* ./
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: npm install -g tree-node-cli
+      - run: tree -a
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v2
         with:
