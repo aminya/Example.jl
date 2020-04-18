@@ -9,6 +9,4 @@ elseif Sys.islinux()
 
 end
 
-include("precompile_includer.jl")
-
 end
