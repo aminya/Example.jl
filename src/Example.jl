@@ -10,5 +10,6 @@ elseif Sys.islinux()
 else
   multiply(x::Number) = x * 5
 end
+include("precompile_includer.jl")
 
 end
