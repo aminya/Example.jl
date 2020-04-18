@@ -58,8 +58,13 @@ jobs:
         run: |
           mv -v artifact/* ./
           mv -v artifact/.[^.]* ./
-          cd ./.github
-					git ls-files -z | xargs -0 git update-index --assume-unchanged
+      - name: Commit includer and precompile files
+        run:  |
+          git add -- ./src
+        	git commit -m 'Add built files' -- ./src
+          git add -- ./deps/SnoopCompile
+        	git commit -m 'Add built files' -- ./deps/SnoopCompile
+          git reset
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
