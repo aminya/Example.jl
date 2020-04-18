@@ -42,32 +42,16 @@ jobs:
         run: julia --project=@. -e 'include("deps/SnoopCompile/snoopi_bot.jl")'
       - name: Running Benchmark
         run: julia --project=@. -e 'include("deps/SnoopCompile/snoopi_bench.jl")'
-      - name: Upload src Folder
+      - name: Upload all
         uses: actions/upload-artifact@v2-preview
         with:
-          # name: src
           path: ./
-      # - name: Upload precompile Folder
-      #   uses: actions/upload-artifact@v2-preview
-      #   with:
-      #     name: precompile
-      #     path: deps/SnoopCompile/precompile/
 
   Create_PR:
     needs: SnoopCompile
     runs-on: ubuntu-latest
     steps:
-      # - name: Download src
-      #   uses: actions/download-artifact@v2-preview
-      #   with:
-      #     name: src
-      # - run: cat src
-      # - name: Download precompile
-      #   uses: actions/download-artifact@v2-preview
-      #   with:
-      #     name: precompile
-      # - run: cat precompile
-      - name: download all
+      - name: Download all
         uses: actions/download-artifact@v2-preview
       # https://github.com/marketplace/actions/create-pull-request
       - name: Create Pull Request
