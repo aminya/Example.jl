@@ -61,6 +61,8 @@ jobs:
           mv -v artifact/.[^.]* ./
       - name: Discard unrelated changes
         run: |
+          git checkout -- Project.toml
+          git checkout -- Manifest.toml
           git diff -w --no-color | git apply --cached --ignore-whitespace && git checkout -- . && git reset && git add -p
       - uses: actions/setup-node@v1
         with:
