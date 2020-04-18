@@ -1,4 +1,4 @@
-name: MultiSnoopCompile
+name: SnoopCompile
 
 # Only runs on pushes. Edit based on your taste.
 on:
@@ -13,6 +13,7 @@ defaults:
 
 jobs:
   SnoopCompile:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -49,6 +50,7 @@ jobs:
           path: ./
 
   Create_PR:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     needs: SnoopCompile
     runs-on: ubuntu-latest
     steps:
@@ -72,3 +74,10 @@ jobs:
           title: "[AUTO] Update precompiles'"
           labels: SnoopCompile
           branch: "SnoopCompile"
+
+  Skip:
+  if: contains(github.event.head_commit.message, '[skip ci]')
+  runs-on: ubuntu-latest
+  steps:
+    - name: Skip CI 🚫
+      run: echo skip ci
